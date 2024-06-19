@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Label Printing</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <h1>Label Printing</h1>
+        <div class="form-container">
+            <form id="labelForm" onsubmit="showLabelPreview(event)">
+                <label for="itemSelect">Select Item:</label>
+                <select id="itemSelect" onchange="updatePrice()">
+                    <option value="" disabled selected>Select an item</option>
+                    <option value="item1" data-price="10.00">Item 1</option>
+                    <option value="item2" data-price="15.50">Item 2</option>
+                    <option value="item3" data-price="7.75">Item 3</option>
+                    <option value="item4" data-price="12.30">Item 4</option>
+                </select>
+
+                <label for="price">MRP:</label>
+                <input type="text" id="price" readonly>
+
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" min="1" value="1" required>
+                
+                <div class="button-container">
+                    <button type="submit">Preview Label</button>
+                </div>
+            </form>
+
+            <div class="item-management">
+                <h2>Add Item</h2>
+                <form id="addItemForm" onsubmit="addItem(event)">
+                    <label for="addItemName">Item Name:</label>
+                    <input type="text" id="addItemName" required>
+                    
+                    <label for="addItemPrice">Item MRP:</label>
+                    <input type="number" id="addItemPrice" step="0.01" required>
+                    
+                    <button type="submit">Add Item</button>
+                </form>
+                
+                <h2>Edit Item</h2>
+                <form id="editItemForm" onsubmit="editItem(event)">
+                    <label for="editItemSelect">Select Item to Edit:</label>
+                    <select id="editItemSelect" onchange="fillEditForm()">
+                        <option value="" disabled selected>Select an item</option>
+                    </select>
+                    
+                    <label for="editItemName">New Item Name:</label>
+                    <input type="text" id="editItemName" required>
+                    
+                    <label for="editItemPrice">New Item MRP:</label>
+                    <input type="number" id="editItemPrice" step="0.01" required>
+                    
+                    <button type="submit">Edit Item</button>
+                </form>
+
+                <h2>Remove Item</h2>
+                <form id="removeItemForm" onsubmit="removeItem(event)">
+                    <label for="removeItemSelect">Select Item to Remove:</label>
+                    <select id="removeItemSelect">
+                        <!-- Options will be dynamically added -->
+                    </select>
+                    <button type="submit">Remove Item</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="labelModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLabelPreview()">&times;</span>
+            <h2>Label Preview</h2>
+            <div id="labelContent" class="label-content">
+                <p id="labelItemName">Item Name: </p>
+                <p id="labelItemDetails">MRP: ₹ | Quantity: </p>
+                <p id="labelItemQuantity">Quantity: </p>
+            </div>
+            <div class="button-container">
+                <button onclick="printLabel()">Print Label</button>
+                <input type="number" id="numberOfLabels" placeholder="Number of Labels" min="1">
+                <button onclick="printMultipleLabels()">Print Multiple Labels</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
